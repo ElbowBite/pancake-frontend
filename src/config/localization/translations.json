@@ -822,5 +822,8 @@
   "Already Collected": "Already Collected",
   "Prediction Markets": "Prediction Markets",
   "Now Live": "Now Live",
-  "in Beta": "in Beta"
+  "in Beta": "in Beta",
+  "Ended %date%": "Ended %date%",
+  "Starts %date%": "Starts %date%",
+  "Ends %date%": "Ends %date%"
 }
