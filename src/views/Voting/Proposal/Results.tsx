@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Text, Flex, Card, CardBody, CardHeader, Heading, Progress, Skeleton } from '@pancakeswap/uikit'
 import times from 'lodash/times'
-import { Vote, VotingStatus } from 'state/types'
-import { useGetVotingStatus } from 'state/hooks'
+import { Vote, VoteLoadingStatus } from 'state/types'
+import { useGetVoteLoadingStatus } from 'state/hooks'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { useTranslation } from 'contexts/Localization'
 import { calculateVoteResults } from '../helpers'
@@ -15,7 +15,7 @@ interface ResultsProps {
 const Results: React.FC<ResultsProps> = ({ choiceCount, votes }) => {
   const { t } = useTranslation()
   const results = calculateVoteResults(votes)
-  const votingStatus = useGetVotingStatus()
+  const votingStatus = useGetVoteLoadingStatus()
   const totalVotes = results.reduce((accum, result) => {
     return accum.plus(result.total)
   }, BIG_ZERO)
@@ -28,7 +28,7 @@ const Results: React.FC<ResultsProps> = ({ choiceCount, votes }) => {
         </Heading>
       </CardHeader>
       <CardBody>
-        {votingStatus === VotingStatus.IDLE &&
+        {votingStatus === VoteLoadingStatus.IDLE &&
           results.length > 0 &&
           results.map((result, index) => {
             const progress = result.total.div(totalVotes).times(100).toNumber()
@@ -47,14 +47,14 @@ const Results: React.FC<ResultsProps> = ({ choiceCount, votes }) => {
               </Box>
             )
           })}
-        {votingStatus === VotingStatus.IDLE && results.length === 0 && (
+        {votingStatus === VoteLoadingStatus.IDLE && results.length === 0 && (
           <Flex alignItems="center">
             <Text fontSize="14px" bold>
               {t('No votes cast yet')}
             </Text>
           </Flex>
         )}
-        {votingStatus === VotingStatus.LOADING &&
+        {votingStatus === VoteLoadingStatus.LOADING &&
           times(choiceCount).map((count, index) => {
             return (
               <Box key={count} mt={index > 0 ? '24px' : '0px'}>
