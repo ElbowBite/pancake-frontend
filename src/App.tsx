@@ -10,6 +10,7 @@ import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import ToastListener from './components/ToastListener'
 import PageLoader from './components/PageLoader'
 import EasterEgg from './components/EasterEgg'
+import ComingSoon from './views/ComingSoon'
 import Pools from './views/Pools'
 import history from './routerHistory'
 
@@ -46,6 +47,9 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
+            <Route path="/">
+              <ComingSoon />
+            </Route>
             <Route path="/" exact>
               <Home />
             </Route>
